@@ -1,0 +1,1116 @@
+<title>Embeddix Axiom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy-900: #0a1f44;
+    --navy-800: #0f2a5c;
+    --navy-700: #123875;
+    --blue-500: #2f6feb;
+    --blue-400: #5b8def;
+    --teal-500: #0e9488;
+    --teal-400: #2dd4c5;
+    --amber-500: #d97a1f;
+    --neutral-0: #ffffff;
+    --neutral-50: #f4f7fc;
+    --neutral-100: #eaf0fa;
+    --neutral-200: #dbe4f3;
+    --neutral-400: #93a3c2;
+    --neutral-600: #556184;
+    --ink: #0a1526;
+    --ink-soft: #3c4a6b;
+    --surface: var(--neutral-0);
+    --surface-alt: var(--neutral-50);
+    --surface-raised: var(--neutral-0);
+    --border: var(--neutral-200);
+    --text: var(--ink);
+    --text-soft: var(--ink-soft);
+    --text-inverse: #f4f7fc;
+    --brand: var(--navy-800);
+    --brand-strong: var(--navy-900);
+    --accent: var(--blue-500);
+    --accent-soft: rgba(47, 111, 235, 0.12);
+    --teal: var(--teal-500);
+    --teal-soft: rgba(14, 148, 136, 0.12);
+    --shadow: 0 20px 45px -25px rgba(10, 31, 68, 0.35);
+    --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+    --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --surface: #0b1526;
+      --surface-alt: #0e1a30;
+      --surface-raised: #101d38;
+      --border: #223257;
+      --text: #e7ecf7;
+      --text-soft: #aab8da;
+      --text-inverse: #0a1526;
+      --brand: #16264a;
+      --brand-strong: #0b1526;
+      --accent: var(--blue-400);
+      --accent-soft: rgba(91, 141, 239, 0.16);
+      --teal: var(--teal-400);
+      --teal-soft: rgba(45, 212, 197, 0.14);
+      --shadow: 0 20px 45px -25px rgba(0, 0, 0, 0.55);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --surface: #0b1526;
+    --surface-alt: #0e1a30;
+    --surface-raised: #101d38;
+    --border: #223257;
+    --text: #e7ecf7;
+    --text-soft: #aab8da;
+    --text-inverse: #0a1526;
+    --brand: #16264a;
+    --brand-strong: #0b1526;
+    --accent: var(--blue-400);
+    --accent-soft: rgba(91, 141, 239, 0.16);
+    --teal: var(--teal-400);
+    --teal-soft: rgba(45, 212, 197, 0.14);
+    --shadow: 0 20px 45px -25px rgba(0, 0, 0, 0.55);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--text);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  p { color: var(--text-soft); max-width: 62ch; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.9em 1.6em;
+    border-radius: 3px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--blue-500); }
+  .btn-ghost {
+    background: transparent;
+    border-color: rgba(255,255,255,0.4);
+    color: inherit;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- NAV ---------- */
+  header.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .brand-name small {
+    display: block;
+    font-family: var(--font-mono);
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
+  nav.links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  nav.links a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-soft);
+    transition: color 0.15s ease;
+  }
+  nav.links a:hover { color: var(--accent); }
+  .nav-cta { display: flex; align-items: center; gap: 20px; }
+  .nav-cta .btn-primary { padding: 0.7em 1.3em; font-size: 0.78rem; }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 42px; height: 42px;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .menu-toggle svg { width: 20px; height: 20px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    background: linear-gradient(180deg, var(--brand-strong) 0%, var(--brand) 100%);
+    color: var(--text-inverse);
+    overflow: hidden;
+    padding: 96px 0 0;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, transparent 0%, transparent 58%, rgba(47,111,235,0.35) 58%, rgba(47,111,235,0.35) 60%, transparent 60%),
+      linear-gradient(115deg, transparent 0%, transparent 68%, rgba(14,148,136,0.28) 68%, rgba(14,148,136,0.28) 70%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+    padding-bottom: 64px;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    line-height: 0.98;
+    font-weight: 800;
+    color: #fff;
+    margin: 18px 0 22px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--blue-400);
+  }
+  .hero p.lede {
+    color: #c6d3ef;
+    font-size: 1.08rem;
+    max-width: 46ch;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 6px;
+    background: var(--surface-raised);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: var(--shadow);
+  }
+  .hero-visual .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .hero-visual .metric {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--text);
+    line-height: 1;
+  }
+  .domain-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    flex: 1;
+    margin-top: 4px;
+  }
+  .domain-cell {
+    border-radius: 4px;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.03em;
+    color: #fff;
+    min-height: 74px;
+  }
+
+  .trust-bar {
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.03);
+  }
+  .trust-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 0;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #c6d3ef;
+  }
+  .trust-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-400); flex-shrink: 0; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section { padding: 88px 0; }
+  .section-alt { background: var(--surface-alt); }
+  .section-head {
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  .section-head p { margin-top: 14px; font-size: 1.02rem; }
+  .rule {
+    width: 46px; height: 3px;
+    background: var(--accent);
+    margin-bottom: 14px;
+    border-radius: 2px;
+  }
+
+  /* ---------- ABOUT / STATS ---------- */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .stat-cell {
+    background: var(--surface);
+    padding: 26px 22px;
+  }
+  .stat-cell .num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-cell .label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-top: 8px;
+  }
+  .pillar-list { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .pillar {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pillar:last-child { border-bottom: none; }
+  .pillar .mark {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--teal);
+    border: 1px solid var(--teal);
+    border-radius: 50%;
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .pillar strong { display: block; font-size: 1rem; color: var(--text); margin-bottom: 3px; }
+  .pillar span { font-size: 0.92rem; color: var(--text-soft); }
+
+  /* ---------- SERVICES ---------- */
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .service-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--card-accent, var(--accent));
+    border-radius: 6px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .service-card h3 {
+    font-size: 1.18rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .service-card .idx {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--card-accent, var(--accent));
+    letter-spacing: 0.06em;
+  }
+  .service-card ul {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .service-card li {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    padding-left: 16px;
+    position: relative;
+  }
+  .service-card li::before {
+    content: "";
+    position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px;
+    background: var(--card-accent, var(--accent));
+    border-radius: 1px;
+  }
+
+  /* ---------- PRODUCTS ---------- */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  .product-card {
+    background: var(--brand-strong);
+    color: #eaf0fa;
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card::after {
+    content: "";
+    position: absolute;
+    right: -40px; bottom: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,111,235,0.35), transparent 70%);
+  }
+  .product-card .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal-400);
+  }
+  .product-card h3 {
+    color: #fff; font-size: 1.5rem; margin: 10px 0 8px;
+  }
+  .product-card p { color: #b9c6e6; }
+  .product-card ul { margin: 16px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .product-card li { font-size: 0.88rem; color: #d3dcf2; padding-left: 18px; position: relative; }
+  .product-card li::before { content: "✓"; position: absolute; left: 0; color: var(--teal-400); font-weight: 700; }
+
+  /* ---------- INDUSTRIES ---------- */
+  .industry-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .industry-chip {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 14px;
+    text-align: center;
+    background: var(--surface-raised);
+  }
+  .industry-chip .glyph { font-size: 1.6rem; margin-bottom: 8px; }
+  .industry-chip span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  /* ---------- CASE STUDIES ---------- */
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .case-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-raised);
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .case-card .badge {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 3px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .case-card h3 { font-size: 1.05rem; text-transform: none; font-weight: 700; margin-top: 6px; }
+  .case-card p { font-size: 0.9rem; margin: 0; }
+  .case-card .outcome {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--teal);
+  }
+
+  /* ---------- COMMITMENT ---------- */
+  .commit-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  .commit-card {
+    text-align: left;
+    padding: 22px 18px;
+    border-radius: 6px;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+  }
+  .commit-card .num { font-family: var(--font-mono); color: var(--accent); font-size: 0.78rem; }
+  .commit-card h4 { font-size: 1rem; text-transform: none; margin: 8px 0 6px; }
+  .commit-card p { font-size: 0.86rem; margin: 0; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-section {
+    background: var(--brand-strong);
+    color: var(--text-inverse);
+  }
+  .contact-section .section-head p { color: #c6d3ef; }
+  .contact-section .eyebrow { color: var(--teal-400); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+  }
+  .contact-info { color: #d3dcf2; }
+  .contact-info h2 { color: #fff; }
+  .contact-detail {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 22px;
+  }
+  .contact-detail .lbl {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-400);
+    min-width: 76px;
+  }
+  .contact-detail a { text-decoration: none; color: #eef2fb; }
+  .contact-detail a:hover { color: var(--blue-400); }
+
+  form.contact-form {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  form.contact-form .full { grid-column: 1 / -1; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #aab8da;
+  }
+  .field input, .field select, .field textarea {
+    background: rgba(10,21,38,0.35);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 4px;
+    padding: 11px 12px;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .field input::placeholder, .field textarea::placeholder { color: #90a0c5; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--blue-400);
+  }
+  form.contact-form .btn-primary { justify-self: start; margin-top: 4px; }
+  .form-note { font-size: 0.8rem; color: #90a0c5; margin-top: 4px; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+  .footer-row a { text-decoration: none; }
+  .footer-links { display: flex; gap: 20px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px) {
+    nav.links, .nav-cta .btn-ghost { display: none; }
+    .menu-toggle { display: grid; place-items: center; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { max-width: 460px; }
+    .about-layout { grid-template-columns: 1fr; }
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-grid { grid-template-columns: 1fr; }
+    .industry-row { grid-template-columns: repeat(3, 1fr); }
+    .case-grid { grid-template-columns: repeat(2, 1fr); }
+    .commit-row { grid-template-columns: repeat(2, 1fr); }
+    .contact-layout { grid-template-columns: 1fr; }
+    form.contact-form { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .service-grid, .case-grid, .commit-row, .stat-grid { grid-template-columns: 1fr; }
+    .industry-row { grid-template-columns: repeat(2, 1fr); }
+    .trust-row { justify-content: flex-start; }
+    section { padding: 64px 0; }
+    .hero { padding-top: 76px; }
+  }
+
+  .mobile-panel {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 24px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .mobile-panel.open { display: flex; }
+  .mobile-panel a {
+    padding: 12px 4px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.98rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-panel a:last-child { border-bottom: none; }
+</style>
+
+<header class="site-nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 3 L43 13.5 V34.5 L24 45 L5 34.5 V13.5 Z" fill="none" stroke="#2f6feb" stroke-width="2.4"/>
+        <path d="M24 3 V24 M24 24 L43 13.5 M24 24 L5 13.5 M24 24 V45" stroke="#0e9488" stroke-width="1.6" opacity="0.8"/>
+      </svg>
+      <span class="brand-name">Embeddix Axiom<small>Engineering the Future. Securing Every Mile.</small></span>
+    </a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#services">Capabilities</a>
+      <a href="#industries">Industries</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="mailto:contact@embeddixltd.com">Email Us</a>
+      <a class="btn btn-primary" href="#contact">Start a Project</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path id="menuIcon" d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#about">About</a>
+    <a href="#services">Capabilities</a>
+    <a href="#industries">Industries</a>
+    <a href="#cases">Case Studies</a>
+    <a href="#contact">Contact</a>
+    <a href="mailto:contact@embeddixltd.com">Email Us</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="padding-top:0;">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Embedded &amp; Functional Safety Engineering</span>
+          <h1>Engineering solutions.<br><em>Delivering real impact.</em></h1>
+          <p class="lede">End-to-end engineering excellence across Automotive, Industrial, Consumer Electronics, Electronics, Mechanical and AI/ML domains &mdash; from requirement to production readiness.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Let's Build What's Next</a>
+            <a class="btn btn-ghost" href="#services">Explore Capabilities &darr;</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <span class="tag">Track Record</span>
+          <div class="metric">20+ yrs</div>
+          <p style="font-size:0.85rem; margin:0; color:var(--text-soft);">of embedded systems &amp; functional safety expertise, from ASIL D braking systems to ASPICE process transformation.</p>
+          <div class="domain-strip">
+            <div class="domain-cell" style="background:#1d4ed8;">Automotive</div>
+            <div class="domain-cell" style="background:#15803d;">Industrial</div>
+            <div class="domain-cell" style="background:#0e7490;">Consumer&nbsp;Elec.</div>
+            <div class="domain-cell" style="background:#1e3a8a;">Electronics</div>
+            <div class="domain-cell" style="background:#44403c;">Mechanical</div>
+            <div class="domain-cell" style="background:#6d28d9;">AI / ML</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-bar">
+      <div class="wrap trust-row">
+        <span class="trust-item"><span class="dot"></span>Safety by Design</span>
+        <span class="trust-item"><span class="dot"></span>Quality &amp; Reliability</span>
+        <span class="trust-item"><span class="dot"></span>Innovation Driven</span>
+        <span class="trust-item"><span class="dot"></span>Partner in Your Success</span>
+        <span class="trust-item"><span class="dot"></span>Customer Centric</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-layout">
+      <div>
+        <span class="eyebrow">Who We Are</span>
+        <h2 style="text-transform:none; font-weight:700; font-size:clamp(1.9rem,3vw,2.5rem); margin-top:10px;">Engineering safety. Delivering reliability.</h2>
+        <p style="margin-top:14px;">Embeddix Axiom Technologies Pvt Ltd is a technology and engineering partner delivering safe, reliable and innovative embedded solutions for the automotive, industrial and consumer electronics industries &mdash; with deep expertise across ISO 26262, IEC 61508 and ISO 21434.</p>
+        <div class="pillar-list">
+          <div class="pillar">
+            <span class="mark">✓</span>
+            <div><strong>ASIL D / SIL 3 Products</strong><span>Hands-on experience developing safety-compliant products at the highest integrity levels.</span></div>
+          </div>
+          <div class="pillar">
+            <span class="mark">✓</span>
+            <div><strong>Diverse Knowledge Base</strong><span>IPR across ABS, ION Braking, Steering, Airbag, ADAS and more.</span></div>
+          </div>
+          <div class="pillar">
+            <span class="mark">✓</span>
+            <div><strong>Full Lifecycle Ownership</strong><span>Concept through end-of-life support for embedded product development.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="num">20+</div><div class="label">Years Experience</div></div>
+        <div class="stat-cell"><div class="num">ASIL D</div><div class="label">Safety Products Delivered</div></div>
+        <div class="stat-cell"><div class="num">6</div><div class="label">Engineering Domains</div></div>
+        <div class="stat-cell"><div class="num">18+</div><div class="label">Months Ongoing OEM Engagement</div></div>
+        <div class="stat-cell"><div class="num">ISO 26262</div><div class="label">Functional Safety Certified</div></div>
+        <div class="stat-cell"><div class="num">SIL 2</div><div class="label">IEC 61508 Compliance Delivered</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Capability Overview</span>
+        <h2>Six engineering disciplines, one accountable partner.</h2>
+        <p>Complete, end-to-end coverage from requirement capture to production support &mdash; each discipline backed by dedicated tooling, templates and domain specialists.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card" style="--card-accent:#0e7490;">
+          <span class="idx">01 / Electronics</span>
+          <h3>Electronics &amp; ECU Design</h3>
+          <ul>
+            <li>Requirement engineering &amp; DOORS traceability</li>
+            <li>HW architecture, PCB layout (ECAD)</li>
+            <li>Worst-case, Monte Carlo &amp; circuit simulation</li>
+            <li>Validation, verification &amp; EOL support</li>
+          </ul>
+        </div>
+        <div class="service-card" style="--card-accent:#15803d;">
+          <span class="idx">02 / Mechanical</span>
+          <h3>Mechanical Design</h3>
+          <ul>
+            <li>3D CAD, component &amp; assembly drawings</li>
+            <li>FEA, thermal &amp; structural simulation</li>
+            <li>Prototyping &amp; manufacturing engineering</li>
+            <li>Mechanical BOM, VAVE &amp; obsolescence mgmt</li>
+          </ul>
+        </div>
+        <div class="service-card" style="--card-accent:#b91c1c;">
+          <span class="idx">03 / Functional Safety</span>
+          <h3>ISO 26262 &amp; ASPICE</h3>
+          <ul>
+            <li>Concept, system, HW &amp; SW safety lifecycle</li>
+            <li>HARA, FMEA, FTA, ASIL decomposition</li>
+            <li>ASPICE 4.0 gap analysis &amp; process closure</li>
+            <li>Compliance advisory &amp; audit readiness</li>
+          </ul>
+        </div>
+        <div class="service-card" style="--card-accent:#1d4ed8;">
+          <span class="idx">04 / Cybersecurity</span>
+          <h3>Automotive Cybersecurity</h3>
+          <ul>
+            <li>TARA &amp; risk assessment (ISO/SAE 21434)</li>
+            <li>Secure architecture, boot &amp; key management</li>
+            <li>Penetration testing &amp; vulnerability assessment</li>
+            <li>UNECE R155 compliance &amp; documentation</li>
+          </ul>
+        </div>
+        <div class="service-card" style="--card-accent:#6d28d9;">
+          <span class="idx">05 / AI &amp; ML</span>
+          <h3>Automation &amp; AI/ML</h3>
+          <ul>
+            <li>Predictive ML models &amp; transfer learning</li>
+            <li>Dashboard development (Power BI, Python/Dash)</li>
+            <li>DOORS &amp; metrics reporting automation</li>
+            <li>Real-time data pipelines (Kafka-based)</li>
+          </ul>
+        </div>
+        <div class="service-card" style="--card-accent:#a15c1a;">
+          <span class="idx">06 / Product Dev.</span>
+          <h3>End-to-End Product Development</h3>
+          <ul>
+            <li>Requirements through production readiness</li>
+            <li>AUTOSAR software (MCAL, BSW, ASW)</li>
+            <li>Calibration, fine-tuning &amp; road testing</li>
+            <li>Complete ownership, concept to market</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Industrial Products</span>
+        <h2>Built in-house. Field-ready.</h2>
+        <p>Compact, industrial-grade hardware designed and engineered end-to-end by our own team.</p>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <span class="tag">Industrial Product</span>
+          <h3>USS Jammer</h3>
+          <p>Protecting what matters. Preventing unwanted intrusion.</p>
+          <ul>
+            <li>Blocks unauthorized ultrasonic interference</li>
+            <li>Real-time detection &amp; adaptive jamming</li>
+            <li>Compact, robust, industrial-grade design</li>
+          </ul>
+        </div>
+        <div class="product-card">
+          <span class="tag">Industrial Product</span>
+          <h3>USS Proximity Switch</h3>
+          <p>Intelligent control. Seamless switching.</p>
+          <ul>
+            <li>Smart proximity sensor control (ON/OFF)</li>
+            <li>System health monitoring &amp; diagnostics</li>
+            <li>ISO 26262-aligned design approach</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section id="industries" class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Where We Deliver</span>
+        <h2>Industries we serve.</h2>
+      </div>
+      <div class="industry-row">
+        <div class="industry-chip"><div class="glyph">🚗</div><span>Automotive</span></div>
+        <div class="industry-chip"><div class="glyph">🏭</div><span>Industrial</span></div>
+        <div class="industry-chip"><div class="glyph">📱</div><span>Consumer Elec.</span></div>
+        <div class="industry-chip"><div class="glyph">🔌</div><span>Electronics</span></div>
+        <div class="industry-chip"><div class="glyph">⚙️</div><span>Mechanical</span></div>
+        <div class="industry-chip"><div class="glyph">🤖</div><span>AI / ML</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="cases">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Success Stories</span>
+        <h2>Real impact, delivered.</h2>
+        <p>A sample of engagements across braking systems, EV drivetrains, industrial safety compliance and data-driven engineering.</p>
+      </div>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="badge">ASIL D</span>
+          <h3>Braking System Product Design</h3>
+          <p>End-to-end HW architecture, PCB layout and functional safety for a Tier 1 supplier, with 80% of functions rated ASIL D.</p>
+          <div class="outcome">Outcome: reduced timeline, ASIL D compliant design</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">ASIL C</span>
+          <h3>EV Electric Drive Unit Safety Analysis</h3>
+          <p>System &amp; SW FMEA plus quantitative FTA across inverter, motor, gearbox and housing using Ansys Medini Analyze.</p>
+          <div class="outcome">Outcome: end-to-end traceability, optimized variants</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">ISO 26262 / GB</span>
+          <h3>2-Wheeler 2-Channel ABS System</h3>
+          <p>Complete concept-to-road development: requirements, HW/ECAD, AUTOSAR software, prototyping and road testing.</p>
+          <div class="outcome">Outcome: cornering ABS, faster time to market</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">IEC 61508 · UK</span>
+          <h3>Baler ECU Safety Assessment</h3>
+          <p>Independent safety lifecycle assessment and gap analysis for a UK industrial automation client&rsquo;s Baler ECU.</p>
+          <div class="outcome">Outcome: SIL 2 compliant, certification-ready</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">ASPICE 4.0</span>
+          <h3>Hardware Process Compliance</h3>
+          <p>Due diligence, gap analysis and documentation to align hardware engineering processes with ASPICE and ISO 26262.</p>
+          <div class="outcome">Outcome: audit &amp; assessment ready processes</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">ISO/SAE 21434</span>
+          <h3>Automotive Cybersecurity Program</h3>
+          <p>18+ month engagement with a global automotive OEM covering TARA, secure architecture and penetration testing.</p>
+          <div class="outcome">Outcome: stronger threat posture, regulatory compliance</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">Automation</span>
+          <h3>RE Metrics Reporting Pipeline</h3>
+          <p>Automated DOORS-to-Power BI pipeline for weekly requirement engineering metrics, replacing manual reporting.</p>
+          <div class="outcome">Outcome: real-time visibility, SPICE-aligned governance</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">Data Platform</span>
+          <h3>Central Validation Metrics Portal</h3>
+          <p>Kafka-based pipeline aggregating validation metrics across tools into role-based, real-time dashboards.</p>
+          <div class="outcome">Outcome: single source of truth for validation data</div>
+        </div>
+        <div class="case-card">
+          <span class="badge">AI / ML</span>
+          <h3>Solar PV Degradation Prediction</h3>
+          <p>Transfer learning and domain adaptation models forecasting PV system losses and degradation across sites.</p>
+          <div class="outcome">Outcome: higher accuracy, reduced losses, better ROI</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMITMENT -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our Commitment</span>
+        <h2>Driven by values. Delivered with excellence.</h2>
+      </div>
+      <div class="commit-row">
+        <div class="commit-card"><div class="num">01</div><h4>Quality</h4><p>Built right, every time, through rigorous validation.</p></div>
+        <div class="commit-card"><div class="num">02</div><h4>Trust</h4><p>Integrity, transparency and complete confidentiality.</p></div>
+        <div class="commit-card"><div class="num">03</div><h4>Value Add</h4><p>Innovative solutions that create measurable impact.</p></div>
+        <div class="commit-card"><div class="num">04</div><h4>Automation</h4><p>Smarter, faster, better engineering through automation.</p></div>
+        <div class="commit-card"><div class="num">05</div><h4>Schedule &amp; Budget</h4><p>Optimal use of resources while meeting every timeline.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="wrap">
+      <div class="contact-layout">
+        <div class="contact-info">
+          <span class="eyebrow">Let's Talk</span>
+          <h2 style="font-size:clamp(1.9rem,3vw,2.6rem); font-weight:700; text-transform:none; margin-top:10px;">Let's build what's next, together.</h2>
+          <p style="margin-top:14px; max-width:44ch;">Tell us about your program &mdash; whether it's a safety-critical product, a process transformation, or an embedded systems challenge. We'll respond within one business day.</p>
+          <div class="contact-detail"><span class="lbl">Email</span><a href="mailto:contact@embeddixltd.com">contact@embeddixltd.com</a></div>
+          <div class="contact-detail"><span class="lbl">Phone</span><a href="tel:+916281330814">+91 6281330814</a></div>
+          <div class="contact-detail"><span class="lbl">Web</span><a href="https://www.embeddixaxiom.com" target="_blank" rel="noopener">www.embeddixaxiom.com</a></div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your full name" required>
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" placeholder="Organization">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@company.com" required>
+          </div>
+          <div class="field">
+            <label for="interest">Area of Interest</label>
+            <select id="interest" name="interest">
+              <option>Functional Safety (ISO 26262 / IEC 61508)</option>
+              <option>Electronics &amp; ECU Design</option>
+              <option>Mechanical Design</option>
+              <option>Automotive Cybersecurity</option>
+              <option>AI / ML &amp; Automation</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="message">Project Details</label>
+            <textarea id="message" name="message" placeholder="Tell us briefly about your requirement"></textarea>
+          </div>
+          <div class="full">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <div class="form-note">Submitting opens your email client addressed to contact@embeddixltd.com.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>&copy; <span id="year"></span> Embeddix Axiom Technologies Pvt Ltd. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#services">Capabilities</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('menuToggle');
+  var panel = document.getElementById('mobilePanel');
+  toggle.addEventListener('click', function () {
+    var isOpen = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      panel.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value || '';
+    var company = document.getElementById('company').value || '';
+    var email = document.getElementById('email').value || '';
+    var interest = document.getElementById('interest').value || '';
+    var message = document.getElementById('message').value || '';
+    var subject = encodeURIComponent('Project inquiry: ' + interest);
+    var body = encodeURIComponent(
+      'Name: ' + name + '\n' +
+      'Company: ' + company + '\n' +
+      'Email: ' + email + '\n' +
+      'Area of interest: ' + interest + '\n\n' +
+      message
+    );
+    window.location.href = 'mailto:contact@embeddixltd.com?subject=' + subject + '&body=' + body;
+  });
+</script>

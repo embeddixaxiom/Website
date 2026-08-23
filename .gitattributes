@@ -1,0 +1,5 @@
+# Default: let Git handle text files automatically
+* text=auto
+
+# Source code - normalize to LF in the repository
+*.html text eol=lf
