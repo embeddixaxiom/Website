@@ -1,0 +1,11 @@
+/* Webfonts. NOTE: no vendor font binaries were supplied with this brand, so the
+   two families below are Google Fonts substitutions served from the Google CDN.
+   To self-host, drop the .woff2 files in assets/fonts/ and replace this @import
+   with local @font-face rules (see the commented block at the bottom). */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+/* Local self-hosting template — uncomment once binaries exist:
+@font-face{font-family:"Sora";font-style:normal;font-weight:400;font-display:swap;src:url("../assets/fonts/Sora-Regular.woff2") format("woff2")}
+@font-face{font-family:"Sora";font-style:normal;font-weight:600;font-display:swap;src:url("../assets/fonts/Sora-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url("../assets/fonts/JetBrainsMono-Medium.woff2") format("woff2")}
+*/
