@@ -3,3 +3,6 @@
 
 # Source code - normalize to LF in the repository
 *.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+# Scripts - normalize to LF in the repository
